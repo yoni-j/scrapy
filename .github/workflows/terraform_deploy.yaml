@@ -27,14 +27,29 @@ jobs:
         run: terraform init
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
+          TF_VAR_USER1: ${{ secrets.USER1 }}
+          TF_VAR_PASSWORD1: ${{ secrets.PASSWORD1 }}
+          TF_VAR_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          TF_VAR_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          TF_VAR_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
 
       - name: Terraform Plan
         run:  terraform plan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
+          TF_VAR_USER1: ${{ secrets.USER1 }}
+          TF_VAR_PASSWORD1: ${{ secrets.PASSWORD1 }}
+          TF_VAR_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          TF_VAR_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          TF_VAR_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
 
 
       - name: Apply Terraform configuration
         run: terraform apply -auto-approve
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
+          TF_VAR_USER1: ${{ secrets.USER1 }}
+          TF_VAR_PASSWORD1: ${{ secrets.PASSWORD1 }}
+          TF_VAR_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+          TF_VAR_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+          TF_VAR_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
