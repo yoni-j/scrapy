@@ -19,4 +19,5 @@ def create_zip():
 if __name__ == "__main__":
     generated_zip_file = create_zip()
     result = {"zip_file_name": generated_zip_file}
+    print("created")
     print(json.dumps(result))
