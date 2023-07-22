@@ -1,0 +1,3 @@
+venv
+.terraform
+deplay_and_schedule.sh

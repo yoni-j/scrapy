@@ -1,0 +1,11 @@
+version: "3"
+
+# This file should be used only for local development environments
+
+services:
+  redis:
+    image: redis
+    platform: linux/amd64
+    container_name: redis
+    ports:
+      - "6379:6379"

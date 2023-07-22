@@ -1,0 +1,25 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches:
+      - master  # Adjust the branch name if needed
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.GCP_SA_KEY }}
+          tf_version: "3.2.1"  # Specify the desired Terraform version
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Apply Terraform configuration
+        run: terraform apply -auto-approve
