@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      USER1: ${{ secrets.USER1 }}
-      PASSWORD1: ${{ secrets.PASSWORD1 }}
-      REDIS_HOST: ${{ secrets.REDIS_HOST }}
-      REDIS_PORT: ${{ secrets.REDIS_PORT }}
-      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      TF_VAR_USER1: ${{ secrets.USER1 }}
+      TF_VAR_PASSWORD1: ${{ secrets.PASSWORD1 }}
+      TF_VAR_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      TF_VAR_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      TF_VAR_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
 
     steps:
       - name: Checkout code

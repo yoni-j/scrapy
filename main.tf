@@ -40,11 +40,11 @@ resource "google_cloudfunctions_function" "ramilevy_scrapy" {
   source_archive_object = google_storage_bucket_object.function_zip_object.name
   entry_point           = "collect_orders"
   environment_variables = {
-    USER1           = var.TF_VAR_USER1
-    PASSWORD1       = var.TF_VAR_PASSWORD1
-    REDIS_HOST      = var.TF_VAR_REDIS_HOST
-    REDIS_PORT      = var.TF_VAR_REDIS_PORT
-    REDIS_PASSWORD  = var.TF_VAR_REDIS_PASSWORD
+    USER1           = var.USER1
+    PASSWORD1       = var.PASSWORD1
+    REDIS_HOST      = var.REDIS_HOST
+    REDIS_PORT      = var.REDIS_PORT
+    REDIS_PASSWORD  = var.REDIS_PASSWORD
   }
 }
 
@@ -68,24 +68,4 @@ resource "null_resource" "delete_zip_file" {
     command = "rm -f ${data.external.generate_zip_file.result["zip_file_name"]}"
   }
   depends_on = [google_cloudfunctions_function.ramilevy_scrapy]
-}
-
-variable "USER1" {
-  description = "User1 variable for your Google Cloud Function"
-}
-
-variable "PASSWORD1" {
-  description = "Password1 variable for your Google Cloud Function"
-}
-
-variable "REDIS_HOST" {
-  description = "Redis host for your Google Cloud Function"
-}
-
-variable "REDIS_PORT" {
-  description = "Redis port for your Google Cloud Function"
-}
-
-variable "REDIS_PASSWORD" {
-  description = "Redis password for your Google Cloud Function"
 }
