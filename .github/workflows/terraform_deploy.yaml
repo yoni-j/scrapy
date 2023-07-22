@@ -19,9 +19,9 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -out:terraform.tfplan
+        run: terraform plan
 
       - name: Apply Terraform configuration
-        run: terraform apply "terraform.tfplan" -auto-approve
+        run: terraform apply -auto-approve
         env:
           GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
