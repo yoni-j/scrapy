@@ -23,7 +23,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan
+        run:  terraform plan -var "gcp_credentials=${{ env.TF_VAR_gcp_credentials }}"
 
       - name: Apply Terraform configuration
         run: terraform apply -auto-approve

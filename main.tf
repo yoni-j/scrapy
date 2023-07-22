@@ -71,5 +71,4 @@ resource "null_resource" "delete_zip_file" {
   depends_on = [google_cloudfunctions_function.ramilevy_scrapy]
 }
 
-variable "gcp_credentials" {
-}
+variable "gcp_credentials" {}
