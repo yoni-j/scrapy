@@ -1,6 +1,7 @@
 provider "google" {
   project = "yonidev"
   region  = "us-central1"
+  credentials = var.gcp_credentials
 }
 
 data "external" "generate_zip_file" {
@@ -68,4 +69,11 @@ resource "null_resource" "delete_zip_file" {
     command = "rm -f ${data.external.generate_zip_file.result["zip_file_name"]}"
   }
   depends_on = [google_cloudfunctions_function.ramilevy_scrapy]
+}
+
+variable "gcp_credentials" {
+  type = string
+  sensitive = true
+  default = "${env("GOOGLE_CLOUD_KEYFILE_JSON")}"
+  description = "Google Cloud service account credentials"
 }
