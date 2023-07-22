@@ -1,7 +1,6 @@
 provider "google" {
   project = "yonidev"
   region  = "us-central1"
-  credentials = var.gcp_credentials
 }
 
 data "external" "generate_zip_file" {
@@ -70,5 +69,3 @@ resource "null_resource" "delete_zip_file" {
   }
   depends_on = [google_cloudfunctions_function.ramilevy_scrapy]
 }
-
-variable "gcp_credentials" {}

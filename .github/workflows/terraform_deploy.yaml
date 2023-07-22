@@ -15,17 +15,17 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Configure Terraform
-        run: |
-          echo "export TF_VAR_gcp_credentials=${{ secrets.TF_VAR_GCP_CREDENTIALS }}" >> $GITHUB_ENV
-
       - name: Initialize Terraform
         run: terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
 
       - name: Terraform Plan
-        run:  terraform plan -var "gcp_credentials=${{ env.TF_VAR_gcp_credentials }}"
+        run:  terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
 
       - name: Apply Terraform configuration
         run: terraform apply -auto-approve
         env:
-          GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
+          GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
