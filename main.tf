@@ -72,8 +72,4 @@ resource "null_resource" "delete_zip_file" {
 }
 
 variable "gcp_credentials" {
-  type = string
-  sensitive = true
-  default = "${env("GOOGLE_CLOUD_KEYFILE_JSON")}"
-  description = "Google Cloud service account credentials"
 }
