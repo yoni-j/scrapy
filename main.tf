@@ -70,22 +70,22 @@ resource "null_resource" "delete_zip_file" {
   depends_on = [google_cloudfunctions_function.ramilevy_scrapy]
 }
 
-variable "USER1" {
+variable "user1" {
   description = "User1 variable for your Google Cloud Function"
 }
 
-variable "PASSWORD1" {
+variable "password1" {
   description = "Password1 variable for your Google Cloud Function"
 }
 
-variable "REDIS_HOST" {
+variable "redis_host" {
   description = "Redis host for your Google Cloud Function"
 }
 
-variable "REDIS_PORT" {
+variable "redis_port" {
   description = "Redis port for your Google Cloud Function"
 }
 
-variable "REDIS_PASSWORD" {
+variable "redis_password" {
   description = "Redis password for your Google Cloud Function"
 }
