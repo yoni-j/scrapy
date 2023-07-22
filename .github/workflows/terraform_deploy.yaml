@@ -29,22 +29,12 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
 
       - name: Terraform Plan
-        run:  terraform plan \
-          -var "user1=${{ env.USER1 }}" \
-          -var "password1=${{ env.PASSWORD1 }}" \
-          -var "redis_host=${{ env.REDIS_HOST }}" \
-          -var "redis_port=${{ env.REDIS_PORT }}" \
-          -var "redis_password=${{ env.REDIS_PASSWORD }}"
+        run:  terraform plan
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
 
 
       - name: Apply Terraform configuration
-        run: terraform apply -auto-approve \
-          -var "user1=${{ env.USER1 }}" \
-          -var "password1=${{ env.PASSWORD1 }}" \
-          -var "redis_host=${{ env.REDIS_HOST }}" \
-          -var "redis_port=${{ env.REDIS_PORT }}" \
-          -var "redis_password=${{ env.REDIS_PASSWORD }}"
+        run: terraform apply -auto-approve
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.TF_VAR_GCP_CREDENTIALS }}
