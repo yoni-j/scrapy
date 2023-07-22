@@ -40,11 +40,11 @@ resource "google_cloudfunctions_function" "ramilevy_scrapy" {
   source_archive_object = google_storage_bucket_object.function_zip_object.name
   entry_point           = "collect_orders"
   environment_variables = {
-    USER1          = "yonyjacoby@gmail.com"
-    PASSWORD1      = "RLhubhh8817"
-    REDIS_HOST     = "redis-17527.c304.europe-west1-2.gce.cloud.redislabs.com"
-    REDIS_PORT     = 17527
-    REDIS_PASSWORD = "BhidWFbZs6msAPh57OZQAh7KF5QfKGFP"
+    USER1           = var.TF_VAR_USER1
+    PASSWORD1       = var.TF_VAR_PASSWORD1
+    REDIS_HOST      = var.TF_VAR_REDIS_HOST
+    REDIS_PORT      = var.TF_VAR_REDIS_PORT
+    REDIS_PASSWORD  = var.TF_VAR_REDIS_PASSWORD
   }
 }
 

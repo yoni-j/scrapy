@@ -8,6 +8,14 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+
+    env:
+      TF_VAR_USER1: ${{ secrets.USER1 }}
+      TF_VAR_PASSWORD1: ${{ secrets.PASSWORD1 }}
+      TF_VAR_REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      TF_VAR_REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      TF_VAR_REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
