@@ -5,7 +5,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket  = "tf-state-scrapy"
+    bucket  = "tf_state_scrapy"
     prefix  = "terraform/state"
   }
 }
