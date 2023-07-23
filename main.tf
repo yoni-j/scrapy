@@ -1,13 +1,13 @@
+provider "google" {
+  project = "yonidev"
+  region  = "us-central1"
+}
+
 terraform {
   backend "gcs" {
     bucket  = "tf-state-scrapy"
     prefix  = "terraform/state"
   }
-}
-
-provider "google" {
-  project = "yonidev"
-  region  = "us-central1"
 }
 
 data "external" "generate_zip_file" {
