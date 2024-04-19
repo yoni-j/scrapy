@@ -16,7 +16,7 @@ def pubsub_handler():
     req_data = request.get_data().decode('utf-8')
     pubsub_message = json.loads(req_data)
     new_list = auth.get_list()
-    DataService.update_data(pubsub_message['chat_id'] + "_list", new_list)
+    DataService.update_data(str(pubsub_message['chat_id']) + "_list", new_list)
     publisher = pubsub_v1.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_name)
     message_bytes = json.dumps(
