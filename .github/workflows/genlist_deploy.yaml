@@ -46,10 +46,10 @@ jobs:
           echo "::set-output name=url::$(gcloud run services describe generate-list-run --format='value(status.url)')"
           
 
-      - name: Create service account for the invoker
-        run: |
-            gcloud iam service-accounts create cloud-run-pubsub-invoker \
-            --display-name "Cloud Run Pub/Sub Invoker"
+#      - name: Create service account for the invoker
+#        run: |
+#            gcloud iam service-accounts create cloud-run-pubsub-invoker \
+#            --display-name "Cloud Run Pub/Sub Invoker"
 
       - name: Give permissions to invoker
         run: |
