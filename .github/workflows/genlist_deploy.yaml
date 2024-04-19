@@ -34,7 +34,6 @@ jobs:
       - name: Deploy Cloud Run
         run: |
           gcloud run deploy generate-list-run \
-          --runtime python311 \
           --region us-east1 \
           --allow-unauthenticated \
           --source src \
