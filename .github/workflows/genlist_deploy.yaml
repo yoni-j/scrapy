@@ -63,5 +63,5 @@ jobs:
           gcloud pubsub subscriptions create myRunSubscription --topic generate-list-topic \
           --ack-deadline=600 \
           --push-endpoint=${{ steps.extract_url.outputs.url }}/ \
-          --push-auth-service-account=cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com
+          --push-auth-service-account=cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com || true
           
