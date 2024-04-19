@@ -53,7 +53,7 @@ jobs:
 
       - name: Give permissions to invoker
         run: |
-           gcloud run services remove-iam-policy-binding generate-list-run \
+           gcloud run services add-iam-policy-binding generate-list-run \
            --member=serviceAccount:cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com \
            --role=roles/run.invoker \
            --region=us-east1
