@@ -20,11 +20,8 @@ r = redis.Redis(
 
 class DataService:
     @staticmethod
-    def update_data(new_data: List[dict], replace=False):
-        current_data = json.loads(DataService.get_data())
-        if not replace:
-            new_data = current_data + new_data
-        r.set(KEY, json.dumps(new_data, ensure_ascii=False))
+    def update_data(key: str, new_data: List[dict]):
+        r.set(key, json.dumps(new_data, ensure_ascii=False))
 
     @staticmethod
     def get_data() -> str:

@@ -1,0 +1,72 @@
+name: Deploy Generate list cloud run
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.TF_VAR_GCP_CREDENTIALS }}'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Export from poetry to requirements.txt
+        uses: divideprojects/poetry-export-requirements-action@v1
+        with:
+          without-hashes: true
+          outfile-name: src/requirements.txt
+
+      - name: Create pub/sub topic
+        run: |
+          gcloud pubsub topics create generate-list-topic || true
+
+      - name: Deploy Cloud Run
+        run: |
+          gcloud run deploy generate-list-run \
+          --runtime python311 \
+          --region us-east1 \
+          --allow-unauthenticated \
+          --source src \
+          --set-env-vars GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},\ 
+          USER1=${{ secrets.USER1 }},\
+          PASSWORD1=${{ secrets.PASSWORD1 }},\
+          REDIS_HOST=${{ secrets.REDIS_HOST }},\
+          REDIS_PORT=${{ secrets.REDIS_PORT }},\
+          REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
+
+      - name: Extract Service URL
+        id: extract_url
+        run: |
+          # Script to extract service URL from deployment output
+          echo "::set-output name=url::$(gcloud run services describe generate-list-run --format='value(status.url)')"
+          
+
+      - name: Create service account for the invoker
+        run: |
+            gcloud iam service-accounts create cloud-run-pubsub-invoker \
+            --display-name "Cloud Run Pub/Sub Invoker"
+
+      - name: Give permissions to invoker
+        run: |
+           gcloud run services add-iam-policy-binding generate-list-run \
+           --member=serviceAccount:cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com \
+           --role=roles/run.invoker
+
+      - name: Create subscription
+        run: |
+          gcloud pubsub subscriptions create myRunSubscription --topic generate-list-topic \
+          --ack-deadline=600 \
+          --push-endpoint=${{ steps.extract_url.outputs.url }}/ \
+          --push-auth-service-account=cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com
+          
