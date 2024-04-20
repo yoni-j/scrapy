@@ -27,6 +27,14 @@ jobs:
           without-hashes: true
           outfile-name: src/requirements.txt
 
+      # Build the Docker image
+      - name: Build Docker image
+        run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest ./src
+
+      # Push the image to Artifact Registry
+      - name: Push Docker image
+        run: docker push us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest
+
       - name: Create pub/sub topic
         run: |
           gcloud pubsub topics create generate-list-topic || true
