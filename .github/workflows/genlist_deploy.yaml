@@ -29,7 +29,7 @@ jobs:
 
       # Build the Docker image
       - name: Build Docker image
-        run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest ./src
+        run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest .
 
       # Push the image to Artifact Registry
       - name: Push Docker image

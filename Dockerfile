@@ -11,7 +11,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy only the files needed for installing dependencies
-COPY src/requirements.txt .
+COPY /src/requirements.txt .
 
 # Install Python dependencies with pip
 RUN pip install --no-cache-dir -r requirements.txt
@@ -23,7 +23,7 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
     rm google-chrome-stable_current_amd64.deb
 
 # Copy the rest of the source code
-COPY src/ .
+COPY /src .
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
