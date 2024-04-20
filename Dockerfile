@@ -17,11 +17,8 @@ COPY /src/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome-stable_current_amd64.deb && \
-    apt-get -fy install && \
-    rm google-chrome-stable_current_amd64.deb
-
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 # Copy the rest of the source code
 COPY /src .
 
