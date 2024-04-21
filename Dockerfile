@@ -22,7 +22,7 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 # Copy the rest of the source code
 COPY /src .
 
-RUN python install_chromedriver.py
+RUN python install_chrome_driver.py
 
 # Install gunicorn
 RUN pip install gunicorn
