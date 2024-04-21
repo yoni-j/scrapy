@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-aiohttp = "^3.9.4"
+aiohttp = "^3.9.5"
 selenium = "^4.19.0"
 selenium-wire = "^5.1.0"
 redis = "^5.0.3"
