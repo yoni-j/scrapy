@@ -35,10 +35,9 @@ jobs:
         run: gcloud auth configure-docker us-east1-docker.pkg.dev
 
       - name: Crete repository
-        run: gcloud artifacts repositories create \
+        run: gcloud artifacts repositories create generate-list-run-image \
             --project yonidev \
-            --location us-east1 \
-            generate-list-run-image
+            --location us-east1
 
       # Push the image to Artifact Registry
       - name: Push Docker image
