@@ -29,18 +29,18 @@ jobs:
 
       # Build the Docker image
       - name: Build Docker image
-        run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest .
+        run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image/generate-list-run-i:latest .
 
       - name: Docker auth
         run: gcloud auth configure-docker us-east1-docker.pkg.dev
 
       - name: Crete repository
-        run: gcloud artifacts repositories create generate-list-run-image --location us-east1 --project yonidev --repository-format docker
+        run: gcloud artifacts repositories create generate-list-run-image --location us-east1 --project yonidev --repository-format docker || true
 
 
       # Push the image to Artifact Registry
       - name: Push Docker image
-        run: docker push us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest
+        run: docker push us-east1-docker.pkg.dev/yonidev/generate-list-run-image/generate-list-run-i:latest
 
       - name: Create pub/sub topic
         run: |
@@ -50,7 +50,7 @@ jobs:
         run: |
           gcloud run deploy generate-list-run \
           --region us-east1 \
-          --image us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest \
+          --image us-east1-docker.pkg.dev/yonidev/generate-list-run-image/generate-list-run-i:latest \
           --allow-unauthenticated \
           --memory 1024M \
           --set-env-vars GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},USER1=${{ secrets.USER1 }},PASSWORD1=${{ secrets.PASSWORD1 }},REDIS_HOST=${{ secrets.REDIS_HOST }},REDIS_PORT=${{ secrets.REDIS_PORT }},REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
