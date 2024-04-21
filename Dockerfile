@@ -22,6 +22,9 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 # Copy the rest of the source code
 COPY /src .
 
+# Install gunicorn
+RUN pip install gunicorn
+
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
 # For environments with multiple CPU cores, increase the number of workers
