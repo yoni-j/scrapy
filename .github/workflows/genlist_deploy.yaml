@@ -36,8 +36,8 @@ jobs:
 
       - name: Crete repository
         run: gcloud artifacts repositories create generate-list-run-image \
-            --location=us-east1 \
-            --project=yonidev
+            --location us-east1 \
+            --project yonidev
 
 
       # Push the image to Artifact Registry
