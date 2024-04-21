@@ -15,6 +15,7 @@ pydantic = "^2.7.0"
 flask = "^3.0.3"
 google-cloud-pubsub = "^2.21.1"
 gunicorn = "^22.0.0"
+chromedriver-binary = "^126.0.6424.0.0"
 
 
 [build-system]

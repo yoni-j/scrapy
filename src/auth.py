@@ -11,6 +11,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from etl_service import OrderItem
+import chromedriver_binary
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("window-size=1024,768")
+chrome_options.add_argument("--no-sandbox")
+
+options = {
+    'disable_encoding': True
+}
+driver = webdriver.Chrome(seleniumwire_options=options, chrome_options=chrome_options)
 
 
 class RamiLevy:
@@ -26,10 +38,6 @@ class RamiLevy:
         return self.collect_orders()
 
     def _login(self):
-        options = {
-            'disable_encoding': True
-        }
-        driver = webdriver.Chrome(seleniumwire_options=options)
         driver.get(f"{self.BASE_URL}/he")
         login_div = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, 'login-user')))
         login_div.click()
