@@ -31,6 +31,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest .
 
+      - name: Docker auth
+        run: gcloud auth configure-docker us-east1-docker.pkg.dev
+
       # Push the image to Artifact Registry
       - name: Push Docker image
         run: docker push us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest
@@ -43,8 +46,8 @@ jobs:
         run: |
           gcloud run deploy generate-list-run \
           --region us-east1 \
+          --image us-east1-docker.pkg.dev/yonidev/generate-list-run-image:latest \
           --allow-unauthenticated \
-          --source src \
           --memory 1024M \
           --set-env-vars GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }},USER1=${{ secrets.USER1 }},PASSWORD1=${{ secrets.PASSWORD1 }},REDIS_HOST=${{ secrets.REDIS_HOST }},REDIS_PORT=${{ secrets.REDIS_PORT }},REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
 
@@ -53,19 +56,6 @@ jobs:
         run: |
           # Script to extract service URL from deployment output
           echo "::set-output name=url::$(gcloud run services describe generate-list-run --region=us-east1 --format='value(status.url)')"
-          
-
-#      - name: Create service account for the invoker
-#        run: |
-#            gcloud iam service-accounts create cloud-run-pubsub-invoker \
-#            --display-name "Cloud Run Pub/Sub Invoker"
-
-#      - name: Give permissions to invoker
-#        run: |
-#           gcloud run services add-iam-policy-binding generate-list-run \
-#           --member=serviceAccount:cloud-run-pubsub-invoker@yonidev.iam.gserviceaccount.com \
-#           --role=roles/run.invoker \
-#           --region=us-east1
 
       - name: Create subscription
         run: |
